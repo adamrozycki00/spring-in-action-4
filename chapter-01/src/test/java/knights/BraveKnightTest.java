@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-class BraveKnightTest {
+public class BraveKnightTest {
 
     @Test
     public void knightShouldEmbarkOnQuest() {
