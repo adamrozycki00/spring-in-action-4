@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("spitter.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
+    @Bean //configure a JSP view resolver
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("WEB-INF/views/");
@@ -23,7 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-    @Override
+    @Override //configure static content handling
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
