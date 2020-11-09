@@ -18,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/spitter")
 public class SpitterController {
 
-    private SpitterRepository spitterRepository;
+    private final SpitterRepository spitterRepository;
 
     @Autowired
     public SpitterController(SpitterRepository spitterRepository) {

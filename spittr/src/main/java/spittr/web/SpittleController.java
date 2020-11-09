@@ -17,9 +17,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/spittles")
 public class SpittleController {
 
-    private static final String MAX_LONG_AS_STRING = Long.toString(Long.MAX_VALUE);
+//    private static final String MAX_LONG_AS_STRING = Long.toString(Long.MAX_VALUE);
+    private static final String MAX_LONG_AS_STRING = "9_223_372_036_854_775_808";
 
-    private SpittleRepository spittleRepository;
+    private final SpittleRepository spittleRepository;
 
     @Autowired
     public SpittleController(SpittleRepository spittleRepository) {

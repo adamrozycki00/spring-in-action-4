@@ -2,10 +2,12 @@ package spittr;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Component
 public class Spitter {
 
     private Long id;
@@ -26,6 +28,9 @@ public class Spitter {
     @NotNull
     @Size(min=2, max=30)
     private String lastName;
+
+    public Spitter() {
+    }
 
     public Spitter(String username, String password, String firstName, String lastName) {
         this.username = username;
