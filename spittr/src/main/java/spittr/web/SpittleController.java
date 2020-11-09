@@ -22,10 +22,7 @@ public class SpittleController {
     }
 
     @RequestMapping(method = GET)
-    public String spittles(
-            @RequestParam(value = "max") long max,
-            @RequestParam(value = "count") int count,
-            Model model) {
+    public String spittles(@RequestParam long max, @RequestParam int count, Model model) {
         model.addAttribute("spittleList", spittleRepository.findSpittles(max, count));
         return "/spittleList";
     }

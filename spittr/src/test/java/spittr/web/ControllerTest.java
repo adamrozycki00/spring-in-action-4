@@ -2,7 +2,6 @@ package spittr.web;
 
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.servlet.view.InternalResourceView;
 import spittr.Spittle;
 import spittr.data.SpitterRepository;
 import spittr.data.SpittleRepository;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class HomeControllerTest {
+public class ControllerTest {
 
     @Test
     public void testHomePage() throws Exception {
@@ -32,24 +31,6 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldShowRecentSpittles() throws Exception {
-        List<Spittle> expectedSpittles = createSpittleList(20);
-        SpittleRepository mockRepository = mock(SpittleRepository.class);
-        when(mockRepository.findSpittles(1001001, 20))
-                .thenReturn(expectedSpittles);
-
-        SpittleController controller = new SpittleController(mockRepository);
-        MockMvc mockMvc = standaloneSetup(controller)
-                .build();
-
-        mockMvc.perform(get("/spittles?max=1001001&count=20"))
-                .andExpect(view().name("/spittleList"))
-                .andExpect(model().attributeExists("spittleList"))
-                .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())))
-        ;
-    }
-
-    @Test
     public void shouldShowPagedSpittles() throws Exception {
         List<Spittle> expectedSpittles = createSpittleList(50);
         SpittleRepository mockRepository = mock(SpittleRepository.class);
@@ -58,11 +39,10 @@ public class HomeControllerTest {
 
         SpittleController controller = new SpittleController(mockRepository);
         MockMvc mockMvc = standaloneSetup(controller)
-                .setSingleView(new InternalResourceView("/WEB-INF/views/spittles.jsp"))
                 .build();
 
         mockMvc.perform(get("/spittles?max=238900&count=50"))
-                .andExpect(view().name("spittles"))
+                .andExpect(view().name("/spittleList"))
                 .andExpect(model().attributeExists("spittleList"))
                 .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
     }
@@ -77,7 +57,7 @@ public class HomeControllerTest {
         MockMvc mockMvc = standaloneSetup(controller).build();
 
         mockMvc.perform(get("/spittles/12345"))
-                .andExpect(view().name("spittle"))
+                .andExpect(view().name("/spittle"))
                 .andExpect(model().attributeExists("spittle"))
                 .andExpect(model().attribute("spittle", expectedSpittle));
     }
@@ -89,7 +69,7 @@ public class HomeControllerTest {
         MockMvc mockMvc = standaloneSetup(controller).build();
 
         mockMvc.perform(get("/spitter/register"))
-                .andExpect(view().name("registerForm"));
+                .andExpect(view().name("/registerForm"));
     }
 
 //    @Test
