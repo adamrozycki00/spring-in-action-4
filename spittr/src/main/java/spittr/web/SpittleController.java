@@ -6,19 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import spittr.Spittle;
 import spittr.data.SpittleRepository;
-
-import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 @RequestMapping("/spittles")
 public class SpittleController {
-
-//    private static final String MAX_LONG_AS_STRING = Long.toString(Long.MAX_VALUE);
-    private static final String MAX_LONG_AS_STRING = "9_223_372_036_854_775_808";
 
     private final SpittleRepository spittleRepository;
 
@@ -28,16 +22,18 @@ public class SpittleController {
     }
 
     @RequestMapping(method = GET)
-    public List<Spittle> spittles(
-            @RequestParam(value = "max", defaultValue = MAX_LONG_AS_STRING) long max,
-            @RequestParam(value = "count", defaultValue = "20") int count) {
-        return spittleRepository.findSpittles(max, count);
+    public String spittles(
+            @RequestParam(value = "max") long max,
+            @RequestParam(value = "count") int count,
+            Model model) {
+        model.addAttribute("spittleList", spittleRepository.findSpittles(max, count));
+        return "/spittleList";
     }
 
     @RequestMapping(value = "/{spittleId}", method = GET)
     public String spittle(@PathVariable long spittleId, Model model) {
         model.addAttribute(spittleRepository.findOne(spittleId));
-        return "spittle";
+        return "/spittle";
     }
 
 }

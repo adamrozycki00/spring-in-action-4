@@ -6,12 +6,17 @@
     <title>Spittr</title>
     <link rel="stylesheet"
           type="text/css"
-          th:href="@{/resources/style.css}"></link>
+          th:href="@{/static/style.css}"></link>
 </head>
 <body>
+
 <h1>Welcome to Spittr</h1>
 
-<a th:href="@{/spittles}">Spittles</a> |
-<a th:href="@{/spitter/register}">Register</a>
+<div class="spittleView" th:object="${spittle}">
+    <div class="spittleMessage"><th:out value="*{message}" /></div>
+    <div>
+        <span class="spittleTime"><th:out value="*{time}" /></span>
+    </div>
+</div>
 </body>
 </html>
